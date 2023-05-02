@@ -1,25 +1,55 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
+import { Container, Row, Col } from 'react-bootstrap';
+import Contacts from './Components/Contacts';
+import AddContactForm from './Components/AddContactForm';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            contacts: [
+                {
+                    name: "Carl Max",
+                    phone: "0244334455",
+                    location: "accra"
+                },
+                {
+                    name: "Bob Fox",
+                    phone: "0244998877",
+                    location: "kumasi"
+                },
+                {
+                    name: "Sam Wood",
+                    phone: "0244885533",
+                    location: "tamale"
+                },
+            ]
+        }
+    }
+
+    addNewContact = (contact) => {
+        this.setState({
+            contacts: [...this.state.contacts, contact]
+        })
+    }
+    render() {
+    return (
+        <>
+            <Container fluid style={{marginTop: "2rem"}}>
+                <Row>
+                    <Col md="4">
+                        <AddContactForm addContact = {this.addNewContact}/>
+                    </Col>
+                    <Col>
+                        <Contacts contactsData={this.state.contacts} />
+                    </Col>
+                </Row>
+            </Container>
+        </>
+    );
+}
 }
 
 export default App;
